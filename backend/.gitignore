@@ -1,0 +1,10 @@
+
+# python things
+.venv
+*__pycache__
+
+# project based
+.env
+
+# mine
+tasks.txt
