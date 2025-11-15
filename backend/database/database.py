@@ -2,11 +2,28 @@ import psycopg2
 
 from flask import current_app
 
-conn = psycopg2.connect(database=current_app.config["PSQL_DATABASE_NAME"], user=current_app.config["PSQL_DATABASE_USER"], password=current_app.config["PSQL_DATABASE_PASSWORD"], host=current_app.config["PSQL_DATABASE_HOST"], port=current_app.config["PSQL_DATABASE_PORT"])
+# need to have get_conn() function otherwise it runs on import and causes a runtime error since it tries to work outside of applciation context. 
+# I am pretty sure this just means, "The current_app will try to be read whilst its still being established since i have imported it into the app file"
+# so instead it establishes the files and read all, AND THEN, it will call the functions after reading them
 
-cur = conn.cursor()
+# get connection string and has to be func because of reason above ^^^
+def get_conn():
+    database_name = current_app.config["PSQL_DATABASE_NAME"]
+    user = current_app.config["PSQL_DATABASE_USER"]
+    password = current_app.config["PSQL_DATABASE_PASSWORD"]
+    host = current_app.config["PSQL_DATABASE_HOST"]
+    port=current_app.config["PSQL_DATABASE_PORT"]
 
-def create_users_table():
+    conn = psycopg2.connect(f"postgresql://{user}:{password}@{host}:{port}/{database_name}")
+
+    return conn
+
+# func for initialising the db on app run (if it doesnt exist already)
+def init_db():
+
+    conn = get_conn()
+    cur = conn.cursor()
+
     cur.execute("""
         CREATE TABLE IF NOT EXISTS users (
             id SERIAL PRIMARY KEY,
@@ -17,10 +34,25 @@ def create_users_table():
         );
     """)
 
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS blogs (
+            id SERIAL PRIMARY KEY,
+            title VARCHAR(255),
+            content VARCHAR(255),
+            isPublished BOOLEAN,
+            user_id INT,
+            CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id)
+        );
+    """)
+
     conn.commit()
 
 
+# registers user in users table
 def register_user(first_name, last_name, username, password):
+    conn = get_conn()
+    cur = conn.cursor()
+
     cur.execute("""
         INSERT INTO users (first_name, last_name, username, password)
         VALUES (%s, %s, %s, %s);
@@ -29,7 +61,11 @@ def register_user(first_name, last_name, username, password):
     conn.commit()
 
 
+# checks if username exists
 def does_username_exist(username):
+    conn = get_conn()
+    cur = conn.cursor()
+
     cur.execute("""
         SELECT username FROM users
         WHERE username = (%s);
@@ -44,7 +80,11 @@ def does_username_exist(username):
         return False
 
 
+# gets user info for login, which is their password (to check they entered it correctly) and id, to store in jwt
 def get_user_info_for_login(username):
+    conn = get_conn()
+    cur = conn.cursor()
+
     cur.execute("""
         SELECT id, password FROM users 
         WHERE username = (%s);
@@ -60,28 +100,17 @@ def get_user_info_for_login(username):
     else: # username doesnt exist
         return None
     
-
     
 ##
 ##  Blog database stuff below
 ##
 
-def create_blogs_table():
-    cur.execute("""
-        CREATE TABLE IF NOT EXISTS blogs (
-            id SERIAL PRIMARY KEY,
-            title VARCHAR(255),
-            content VARCHAR(255),
-            isPublished BOOLEAN,
-            user_id INT,
-            CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id)
-        );
-    """)
 
-    conn.commit()
-
-
+# create a blog in the blogs table
 def create_blog_return_id(title, content, user_id, is_published):
+    conn = get_conn()
+    cur = conn.cursor()
+
     cur.execute("""
         INSERT INTO blogs (title, content, isPublished, userId) 
         VALUES (%s, %s, %s, %s);
@@ -94,7 +123,11 @@ def create_blog_return_id(title, content, user_id, is_published):
     return blog_id
 
 
+# updates blog details that is stored in db
 def update_blog(title, content, blog_id, is_published):
+    conn = get_conn()
+    cur = conn.cursor()
+    
     cur.execute("""
         UPDATE blogs
         SET title = (%s), content = (%s), isPublished = (%s)
@@ -104,7 +137,11 @@ def update_blog(title, content, blog_id, is_published):
     conn.commit()
 
 
+# delete a blog stored in db
 def delete_blog(title, content, blog_id):
+    conn = get_conn()
+    cur = conn.cursor()
+    
     cur.execute("""
         DELETE FROM blogs
         WHERE title = (%s) AND content = (%s) AND id = (%s);
