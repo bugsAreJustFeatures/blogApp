@@ -39,7 +39,7 @@ def init_db():
             id SERIAL PRIMARY KEY,
             title VARCHAR(255),
             content VARCHAR(255),
-            isPublished BOOLEAN,
+            is_published BOOLEAN,
             user_id INT,
             CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id)
         );
@@ -107,14 +107,15 @@ def get_user_info_for_login(username):
 
 
 # create a blog in the blogs table
-def create_blog_return_id(title, content, user_id, is_published: bool):
+def create_blog_return_id(title, content, is_published: bool, user_id):
     conn = get_conn()
     cur = conn.cursor()
 
     cur.execute("""
-        INSERT INTO blogs (title, content, isPublished, userId) 
-        VALUES (%s, %s, %s, %s);
-    """, (title, content, user_id, is_published))
+        INSERT INTO blogs (title, content, is_published, user_id) 
+        VALUES (%s, %s, %s, %s)
+        RETURNING id;
+    """, (title, content, is_published, user_id ))
 
     conn.commit()
 
@@ -129,7 +130,7 @@ def get_blog(blog_id):
     cur = conn.cursor()
 
     cur.execute("""
-        SELECT title, content, is_published, user_id FROM users
+        SELECT title, content, is_published, user_id FROM blogs
         WHERE id = (%s);
     """, (blog_id,))
 
