@@ -8,9 +8,9 @@ from database.database import get_user_info_for_login
 import datetime
 import jwt
 
-login_route_blueprint = Blueprint("login_route", __name__, url_prefix=("/api"))
+login_blueprint = Blueprint("login", __name__, url_prefix=("/api"))
 
-@login_route_blueprint.route("/login", methods=["POST"])
+@login_blueprint.route("/login", methods=["POST"])
 def login():
     data = request.get_json()
 

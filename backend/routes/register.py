@@ -3,9 +3,9 @@ from werkzeug.security import generate_password_hash
 
 from database.database import does_username_exist, register_user
 
-register_route_blueprint = Blueprint("register_route", __name__, url_prefix="/api")
+register_blueprint = Blueprint("register", __name__, url_prefix="/api")
 
-@register_route_blueprint.route("/register", methods=["POST"])
+@register_blueprint.route("/register", methods=["POST"])
 def register():
     data = request.get_json()
 

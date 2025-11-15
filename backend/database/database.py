@@ -107,7 +107,7 @@ def get_user_info_for_login(username):
 
 
 # create a blog in the blogs table
-def create_blog_return_id(title, content, user_id, is_published):
+def create_blog_return_id(title, content, user_id, is_published: bool):
     conn = get_conn()
     cur = conn.cursor()
 
@@ -123,8 +123,23 @@ def create_blog_return_id(title, content, user_id, is_published):
     return blog_id
 
 
-# updates blog details that is stored in db
-def update_blog(title, content, blog_id, is_published):
+# get blog details to display 
+def get_blog(blog_id):
+    conn = get_conn()
+    cur = conn.cursor()
+
+    cur.execute("""
+        SELECT title, content, is_published, user_id FROM users
+        WHERE id = (%s);
+    """, (blog_id,))
+
+    blog_details = cur.fetchone()
+
+    return blog_details
+
+
+# edits blog details that is stored in db
+def edit_blog(title, content, blog_id, is_published: bool):
     conn = get_conn()
     cur = conn.cursor()
     
@@ -138,13 +153,14 @@ def update_blog(title, content, blog_id, is_published):
 
 
 # delete a blog stored in db
-def delete_blog(title, content, blog_id):
+def delete_blog(user_id, blog_id):
     conn = get_conn()
     cur = conn.cursor()
     
     cur.execute("""
         DELETE FROM blogs
-        WHERE title = (%s) AND content = (%s) AND id = (%s);
-    """, (title, content, blog_id))
+        WHERE user_id = (%s) AND id = (%s);
+    """, (user_id, blog_id))
 
     conn.commit()
+
