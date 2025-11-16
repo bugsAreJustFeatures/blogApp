@@ -4,8 +4,8 @@ from database.database import get_blog
 
 get_blog_blueprint = Blueprint("get", __name__, url_prefix="/api")
 
-@get_blog_blueprint.route("/get-blog", methods=["POST"])
-def view():
+@get_blog_blueprint.route("/get-blog", methods=["GET"])
+def get_blog():
     data = request.get_json() # read request as json
 
     blog_id = data["blog_id"] # get blog_id from request
