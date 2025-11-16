@@ -100,6 +100,46 @@ def get_user_info_for_login(username):
     else: # username doesnt exist
         return None
     
+
+# edit username 
+def edit_username(user_id, new_username):
+    conn = get_conn()
+    cur = conn.cursor()
+
+    cur.execute("""
+        UPDATE users
+        SET username = (%s)
+        WHERE id = (%s);
+    """, (new_username, user_id))
+
+    conn.commit()
+
+
+# edit name
+def edit_name(user_id, new_first_name, new_last_name):
+    conn = get_conn()
+    cur = conn.cursor()
+
+    cur.execute("""
+        UPDATE users
+        SET first_name = (%s), last_name = (%s)
+        WHERE id = (%s);
+    """, (new_first_name, new_last_name, user_id))
+
+    conn.commit()
+
+
+# delete user account
+def delete_account(user_id):
+    conn = get_conn()
+    cur = conn.cursor()
+
+    cur.execute("""
+        DELETE FROM users 
+        WHERE id = (%s);
+    """, (user_id,))
+
+    conn.commit()
     
 ##
 ##  Blog database stuff below
