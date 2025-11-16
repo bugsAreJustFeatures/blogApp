@@ -3,7 +3,7 @@ from flask import Flask, request
 from database.database import init_db
 from dotenv import load_dotenv
 
-from routes import register, login, create_blog, get_blog, edit_blog, delete_blog, edit_username, edit_name, delete_account
+from routes import register, login, create_blog, get_blog, edit_blog, delete_blog, edit_username, edit_name, delete_account, get_home_blogs
 
 # initialise app
 app = Flask(__name__)
@@ -40,3 +40,4 @@ app.register_blueprint(edit_blog.edit_blog_blueprint)
 app.register_blueprint(edit_username.edit_username_blueprint)
 app.register_blueprint(edit_name.edit_name_blueprint)
 app.register_blueprint(delete_account.delete_account_blueprint)
+app.register_blueprint(get_home_blogs.get_home_blogs_route_blueprint)
