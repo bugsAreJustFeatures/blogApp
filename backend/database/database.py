@@ -92,7 +92,7 @@ def get_user_info_for_login(username):
 
     user = cur.fetchone()
 
-    if not user: # username exists
+    if user: # username exists
         return {
             "id": user[0],
             "password": user[1]
