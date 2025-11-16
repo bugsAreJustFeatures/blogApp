@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify, current_app
 from werkzeug.security import check_password_hash
 
-from datetime import timezone, datetime, timedelta
+from datetime import timezone, timedelta
 
 from database.database import get_user_info_for_login
 
@@ -47,7 +47,7 @@ def login():
     # user entered correct details so sign jwt and return to front end and log user in
     
     # create expiration time variable so code is cleaner
-    expiration = datetime.now(timezone.utc) + timedelta(days=3)
+    expiration = datetime.datetime.now(timezone.utc) + timedelta(days=3) 
     
     token = jwt.encode({
         "user_id": user["id"],
