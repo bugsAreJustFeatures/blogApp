@@ -30,7 +30,8 @@ def init_db():
             first_name VARCHAR(255),
             last_name VARCHAR(255),
             username VARCHAR(255),
-            password VARCHAR(255)        
+            password VARCHAR(255),    
+            created_on TIMESTAMP DEFAULT NOW() 
         );
     """)
 
@@ -40,10 +41,21 @@ def init_db():
             title VARCHAR(255),
             content VARCHAR(255),
             is_published BOOLEAN,
+            created_on TIMESTAMP DEFAULT NOW(),
             user_id INT,
             CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id)
         );
     """)
+
+    # cur.execute("""
+    #     INSERT INTO users (first_name, last_name, username, password)
+    #     VALUES ('user1', 'user1', 'username1', 'myPassword');
+    # """)
+
+    # cur.execute("""
+    #     INSERT INTO blogs (title, content, is_published, user_id)
+    #     VALUES ('blog1', 'blog1', true, 1)
+    # """)
 
     conn.commit()
 
@@ -170,7 +182,7 @@ def get_blog(blog_id):
     cur = conn.cursor()
 
     cur.execute("""
-        SELECT title, content, is_published, user_id FROM blogs
+        SELECT title, content, is_published, user_id, created_on FROM blogs
         WHERE id = (%s);
     """, (blog_id,))
 
@@ -204,4 +216,24 @@ def delete_blog(user_id, blog_id):
     """, (user_id, blog_id))
 
     conn.commit()
+
+
+# get home blogs - this is just a set amount of blogs in desc order (for now 10 and if i want to i can implement pages where each page sends another request and gets another 10 for example)
+def get_home_blogs():
+    conn = get_conn()
+    cur = conn.cursor()
+
+    cur.execute("""
+        SELECT id, title, content, user_id, created_on FROM blogs
+        WHERE is_published = true
+        ORDER BY created_on DESC
+        LIMIT 10;
+    """)
+
+    home_blogs = cur.fetchall()
+
+    return home_blogs
+
+
+
 
