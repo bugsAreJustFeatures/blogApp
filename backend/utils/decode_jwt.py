@@ -7,7 +7,7 @@ def decode_jwt(current_app, request):
     print("JWT Token: ", token)
 
     # decode jwt to get user_id
-    decoded_token = jwt.decode(token, current_app.config["JWT_SECRET_KEY"])
+    decoded_token = jwt.decode(token,current_app.config["JWT_SECRET_KEY"], algorithms=["HS256"])
     print("Decoded JWT: ", decoded_token)
 
     return decoded_token
