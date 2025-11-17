@@ -1,5 +1,6 @@
 import os
 from flask import Flask, request
+from flask_cors import CORS
 from database.database import init_db
 from dotenv import load_dotenv
 
@@ -7,7 +8,6 @@ from routes import register, login, create_blog, get_blog, edit_blog, delete_blo
 
 # initialise app
 app = Flask(__name__)
-
 
 # use this to forge a jwt to test routes - DELETE IN PRODUCTION
 FAKE_JWT = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo5LCJleHAiOjE3NjM1NTEyNTR9.Q8TBDyZ7Fh4MHuAy4xDEcS80LgsQy_EGsyHkubbtomE"
@@ -22,6 +22,9 @@ app.config["PSQL_DATABASE_USER"] = os.getenv("DATABASE_USER")
 app.config["PSQL_DATABASE_PASSWORD"] = os.getenv("DATABASE_PASSWORD")
 app.config["PSQL_DATABASE_HOST"] = os.getenv("DATABASE_HOST")
 app.config["PSQL_DATABASE_PORT"] = os.getenv("DATABASE_PORT")
+
+# CORS setup
+CORS(app, resources={r"/api/*": { "origins":"http://localhost:5173" }})
 
 # jwt variable
 app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
