@@ -2,7 +2,7 @@ from flask import Blueprint, current_app, request, jsonify
 
 from utils.decode_jwt import decode_jwt
 
-from database.database import edit_name
+from database.database import edit_first_name, edit_last_name, edit_name
 
 edit_name_blueprint = Blueprint("edit_name", __name__, url_prefix="/api")
 
@@ -18,7 +18,22 @@ def edit_name_route():
     new_first_name = data["newFirstName"]
     new_last_name = data["newLastName"]
 
-    edit_name(user_id, new_first_name, new_last_name)
+    # check that at least one new name has been inputted 
+    if len(new_first_name) == 0 and len(new_last_name) == 0:
+        return jsonify({
+            "error": True,
+            "message": "No name was entered."
+        }), 200
+    
+    # check which name the user wants to update
+    if len(new_first_name) > 0 and len(new_last_name) == 0: # update first name
+        edit_first_name(user_id, new_first_name)
+
+    elif len(new_first_name) == 0 and len(new_last_name) > 0: # update last name
+        edit_last_name(user_id, new_last_name)
+
+    else: # both names want updating
+        edit_name(user_id, new_first_name, new_last_name)
 
     return jsonify({
         "error": False,
