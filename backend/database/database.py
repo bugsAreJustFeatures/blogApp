@@ -57,6 +57,10 @@ def init_db():
     #     VALUES ('blog1', 'blog1', true, 1)
     # """)
 
+    # cur.execute("""
+    #     INSERT INTO blogs (title, content, is_published, user_id)
+    #     VALUES ('new blog', 'this is my new blog', true, 4)
+    # """)
     conn.commit()
 
 
@@ -264,7 +268,9 @@ def get_home_blogs():
     cur = conn.cursor()
 
     cur.execute("""
-        SELECT id, title, content, user_id, created_on FROM blogs
+        SELECT blogs.id, blogs.title, blogs.content, blogs.created_on, users.username FROM blogs
+        LEFT JOIN users
+        ON blogs.user_id = users.id
         WHERE is_published = true
         ORDER BY created_on DESC
         LIMIT 10;
