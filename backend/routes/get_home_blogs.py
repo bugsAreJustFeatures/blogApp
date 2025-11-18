@@ -4,7 +4,7 @@ from database.database import get_home_blogs
 
 get_home_blogs_route_blueprint = Blueprint("home", __name__, url_prefix="/api")
 
-@get_home_blogs_route_blueprint.route("/home", methods=["GET"])
+@get_home_blogs_route_blueprint.route("/get-home-blogs", methods=["GET"])
 def get_home_blogs_route():
 
     # call db to get home blogs - this returns 10
