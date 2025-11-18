@@ -4,7 +4,6 @@ import styles from "./RegisterPage.module.css"
 export default function RegisterPage() {
 
     const api = import.meta.env.VITE_API
-    console.log(api)
 
     async function handleForm(e) {
         e.preventDefault()  // prevent default form behaviour
@@ -33,10 +32,13 @@ export default function RegisterPage() {
                 }),
             });
 
-            // read and check response
-            console.log(response)
-            const data = await response.json()
-            console.log(data)
+            // check response was ok
+            if (response.status !== 200) {
+                console.error("Error occured whilst contacting API.")
+            } else {
+                // redirect to another page
+            }
+
         } catch (err) {
             throw new Error(err);
         };
