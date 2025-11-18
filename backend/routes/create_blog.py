@@ -15,11 +15,9 @@ def create():
     content = data["content"] # get content form input
     is_published = data["isPublished"] # get published status
 
-    # decoded_token = decode_jwt(current_app, request)
-
-    # get user_id from token
-    # user_id = decoded_token["user_id"]
-    user_id = 7
+    # get user_id from token after decoding it                   
+    decoded_token = decode_jwt(current_app, request)
+    user_id = decoded_token["user_id"]
 
     # create blog 
     blog_id = create_blog_return_id(title, content, is_published, user_id)
