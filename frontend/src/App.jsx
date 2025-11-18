@@ -9,6 +9,7 @@ import LogoutPage from './LogoutPage/LogoutPage';
 import SettingsPage from "./SettingsPage/SettingsPage"
 import BlogPage from "./BlogPage/BlogPage"
 import UserBlogsPage from "./UserBlogsPage/UserBlogsPage"
+import CreateBlogPage from './CreateBlogPage/CreateBlogPage';
 
 function App() {
 
@@ -44,6 +45,10 @@ function App() {
         {
           path: "/users/:username",
           element: < UserBlogsPage />,
+        },
+        {
+          path: "/create-blog",
+          element: < CreateBlogPage />,
         }
       ]
     }
