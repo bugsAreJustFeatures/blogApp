@@ -127,7 +127,34 @@ def edit_username(user_id, new_username):
     conn.commit()
 
 
-# edit name
+# edit first name
+def edit_first_name(user_id, new_first_name):
+    conn = get_conn()
+    cur = conn.cursor()
+
+    cur.execute("""
+        UPDATE users
+        SET first_name = (%s)
+        WHERE id = (%s);
+    """, (new_first_name, user_id))
+
+    conn.commit()
+
+
+# edit last name
+def edit_last_name(user_id, new_last_name):
+    conn = get_conn()
+    cur = conn.cursor()
+
+    cur.execute("""
+        UPDATE users
+        SET last_name = (%s)
+        WHERE id = (%s);
+    """, (new_last_name, user_id))
+
+    conn.commit()
+
+# edit both names
 def edit_name(user_id, new_first_name, new_last_name):
     conn = get_conn()
     cur = conn.cursor()
