@@ -29,13 +29,23 @@ def edit_name_route():
     if len(new_first_name) > 0 and len(new_last_name) == 0: # update first name
         edit_first_name(user_id, new_first_name)
 
+        return jsonify({
+            "error": False,
+            "message": "First name updated successfully."
+        }), 200
+
     elif len(new_first_name) == 0 and len(new_last_name) > 0: # update last name
         edit_last_name(user_id, new_last_name)
+
+        return jsonify({
+            "error": False,
+            "message": "Last name updated successfully."
+        }), 200
 
     else: # both names want updating
         edit_name(user_id, new_first_name, new_last_name)
 
-    return jsonify({
-        "error": False,
-        "message": "Name updated successfully."
-    }), 200
+        return jsonify({
+            "error": False,
+            "message": "Name updated successfully."
+        }), 200
