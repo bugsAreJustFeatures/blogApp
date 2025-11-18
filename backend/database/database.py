@@ -168,6 +168,19 @@ def edit_name(user_id, new_first_name, new_last_name):
     conn.commit()
 
 
+# edit password
+def edit_password(user_id, new_password):
+    conn = get_conn()
+    cur = conn.cursor()
+
+    cur.execute("""
+        UPDATE users
+        SET password = (%s)
+        WHERE id = (%s);
+    """, (new_password, user_id))
+
+    conn.commit()
+
 # delete user account
 def delete_account(user_id):
     conn = get_conn()
