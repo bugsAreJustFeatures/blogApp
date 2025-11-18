@@ -1,6 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import styles from "./LoginPage.module.css"
 
 export default function LoginPage() {
+
+    const navigate = useNavigate();
 
     const api = import.meta.env.VITE_API;
 
@@ -27,7 +30,7 @@ export default function LoginPage() {
 
             // read and check response
 
-            if (response.status !== 201) {
+            if (response.status !== 200) {
                 console.error("Error whilst contacting API. Could not login user.");
                 return;
             };
@@ -39,7 +42,8 @@ export default function LoginPage() {
             const token = data.token;
             localStorage.setItem("token", token);
 
-            // redirect to a page here
+            // redirect to home page here
+            navigate("/");
         } catch (err) {
             throw new Error(err);
         };
