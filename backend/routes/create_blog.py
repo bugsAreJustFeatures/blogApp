@@ -3,7 +3,7 @@ from flask import Blueprint, request, current_app, jsonify
 from database.database import create_blog_return_id
 
 from utils.decode_jwt import decode_jwt
-from backend.utils.is_jwt_valid import is_jwt_valid
+from utils.is_jwt_valid import is_jwt_valid
 
 create_blog_blueprint = Blueprint("create_blog", __name__, url_prefix="/api")
 

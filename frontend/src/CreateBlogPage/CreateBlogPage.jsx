@@ -36,6 +36,8 @@ export default function CreateBlogPage() {
             // check it was ok
             if (response.status == 201) {
                 navigate("/")
+            } else if (response.status == 401) {
+                navigate("/login")
             };
 
         } catch (err) {

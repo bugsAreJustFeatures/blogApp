@@ -9,15 +9,11 @@ import time
 # function that takes in a jwt, if it exists, and checks that data inside is valid
 def is_jwt_valid(current_app, request):
 
-    # first, check if there is an Authorization otherwise just return 401 straight away rather than checking
-    if not request.headers["Authorization"]:
-        return jsonify({
-            "error": True,
-            "message": "No 'Authorization' header.",
-        }), 40
-
     # call decode_jwt to try to check if theres a user_id in it and that the exp date hasnt passed
     decoded_jwt = decode_jwt.decode_jwt(current_app, request)
+
+    if decoded_jwt == None: # it returned none since theres not token
+        return False
 
     # make sure both current time and the exp time is stored in unix time, this is just every second since 1970 (also called epoch time)
     current_time = int(time.time()) # this is the current time stored in unix
