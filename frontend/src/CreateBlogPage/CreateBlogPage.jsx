@@ -1,12 +1,31 @@
 import { useNavigate } from "react-router-dom";
 
 import styles from "./CreateBlogPage.module.css";
+import checkJwt from "../utils/checkJwt";
+import { useEffect } from "react";
 
 export default function CreateBlogPage() {
 
     const navigate = useNavigate();
 
     const api = import.meta.env.VITE_API;
+
+    useEffect(() => {
+        function checkJwtIsThere() {
+
+            const token = localStorage.getItem("token"); // get bearer token from local storage
+
+            const isJwtThere = checkJwt(token); // assign value
+
+            // if no jwt redirect user to login page otherwise let them pass since they have a valid jwt, even if the contents are invalid, i have checks on backend that will redirect them after the try to make a blog
+            if (!isJwtThere) {
+                navigate("/login");
+            };
+        };
+        checkJwtIsThere();
+
+    }, [])
+
 
     async function handleForm(e) {
         e.preventDefault(); // prevent default form behaviour
