@@ -96,6 +96,24 @@ def does_username_exist(username):
         return False
 
 
+# check if a user with an id exists
+def does_user_id_exist(user_id):
+    conn = get_conn()
+    cur = conn.cursor()
+
+    cur.execute("""
+        SELECT username FROM users
+        WHERE id = (%s);
+    """, (user_id,))
+
+    user = cur.fetchone() # try to assign the user if it exists
+
+    # if user exists return True otherwise False, it doesnt
+    if (user):
+        return True
+    else:
+        return False
+
 # gets user info for login, which is their password (to check they entered it correctly) and id, to store in jwt
 def get_user_info_for_login(username):
     conn = get_conn()
