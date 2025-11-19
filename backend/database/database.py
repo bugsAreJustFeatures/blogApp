@@ -226,8 +226,10 @@ def get_blog(blog_id):
     cur = conn.cursor()
 
     cur.execute("""
-        SELECT title, content, is_published, user_id, created_on FROM blogs
-        WHERE id = (%s);
+        SELECT blogs.title, blogs.content, blogs.is_published, blogs.created_on, users.username FROM blogs
+        LEFT JOIN users
+        ON blogs.user_id = users.id
+        WHERE blogs.id = (%s);
     """, (blog_id,))
 
     blog_details = cur.fetchone()
