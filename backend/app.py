@@ -4,7 +4,7 @@ from flask_cors import CORS
 from database.database import init_db
 from dotenv import load_dotenv
 
-from routes import register, login, create_blog, get_blog, edit_blog, delete_blog, edit_username, edit_name, delete_account, get_home_blogs, edit_password
+from routes import register, login, create_blog, get_blog, edit_blog, delete_blog, edit_username, edit_name, delete_account, get_home_blogs, edit_password, get_user_blogs
 
 # initialise app
 app = Flask(__name__)
@@ -38,3 +38,4 @@ app.register_blueprint(edit_name.edit_name_blueprint)
 app.register_blueprint(delete_account.delete_account_blueprint)
 app.register_blueprint(get_home_blogs.get_home_blogs_route_blueprint)
 app.register_blueprint(edit_password.edit_password_blueprint)
+app.register_blueprint(get_user_blogs.get_user_blogs_blueprint)
