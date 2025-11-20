@@ -39,7 +39,8 @@ def init_db():
         CREATE TABLE IF NOT EXISTS blogs (
             id SERIAL PRIMARY KEY,
             title VARCHAR(255),
-            content VARCHAR(255),
+            content TEXT,
+            summary VARCHAR(255),
             is_published BOOLEAN,
             created_on TIMESTAMP DEFAULT NOW(),
             user_id INT,
@@ -48,18 +49,13 @@ def init_db():
     """)
 
     # cur.execute("""
-    #     INSERT INTO users (first_name, last_name, username, password)
-    #     VALUES ('user1', 'user1', 'username1', 'myPassword');
-    # """)
-
-    # cur.execute("""
     #     INSERT INTO blogs (title, content, is_published, user_id)
     #     VALUES ('blog1', 'blog1', true, 1)
     # """)
 
     # cur.execute("""
     #     INSERT INTO blogs (title, content, is_published, user_id)
-    #     VALUES ('new blog', 'this is my new blog', true, 4)
+    #     VALUES ('new blog', 'this is my new blog', true, 2)
     # """)
     conn.commit()
 
@@ -221,15 +217,15 @@ def delete_account(user_id):
 
 
 # create a blog in the blogs table
-def create_blog_return_id(title, content, is_published: bool, user_id):
+def create_blog_return_id(title, content, summary, is_published: bool, user_id):
     conn = get_conn()
     cur = conn.cursor()
 
     cur.execute("""
-        INSERT INTO blogs (title, content, is_published, user_id) 
-        VALUES (%s, %s, %s, %s)
+        INSERT INTO blogs (title, content, summary, is_published, user_id) 
+        VALUES (%s, %s, %s, %s, %s)
         RETURNING id;
-    """, (title, content, is_published, user_id ))
+    """, (title, content, summary, is_published, user_id ))
 
     conn.commit()
 
@@ -288,7 +284,7 @@ def get_home_blogs():
     cur = conn.cursor()
 
     cur.execute("""
-        SELECT blogs.id, blogs.title, blogs.content, blogs.created_on, users.username FROM blogs
+        SELECT blogs.id, blogs.title, blogs.summary, blogs.created_on, users.username FROM blogs
         LEFT JOIN users
         ON blogs.user_id = users.id
         WHERE is_published = true
@@ -314,7 +310,7 @@ def get_user_blogs(username):
     user_id = cur.fetchone()
 
     cur.execute("""
-        SELECT blogs.id, blogs.title, blogs.content, blogs.created_on, users.username FROM blogs
+        SELECT blogs.id, blogs.title, blogs.content, blogs.summary, blogs.created_on, users.username FROM blogs
         LEFT JOIN users
         ON blogs.user_id = users.id
         WHERE blogs.user_id = (%s)
