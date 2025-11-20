@@ -12,14 +12,17 @@ export default function UserBlogsPage() {
     useEffect(() => {
 
         async function fetchUserBlogs(){
+
             const response = await fetch(`${api}/get-user-blogs/${params.username}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem("token")}`,
                 },
             });
 
             const data = await response.json()
+            console.log(data)
             setBlogs(data.blogs)
         };
         fetchUserBlogs();
