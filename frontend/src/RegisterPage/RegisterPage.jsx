@@ -1,9 +1,10 @@
 import styles from "./RegisterPage.module.css"
-
+import { useNavigate } from "react"
 
 export default function RegisterPage() {
 
     const api = import.meta.env.VITE_API
+    const navigate = useNavigate();
 
     async function handleForm(e) {
         e.preventDefault()  // prevent default form behaviour
@@ -37,6 +38,7 @@ export default function RegisterPage() {
                 console.error("Error occured whilst contacting API.")
             } else {
                 // redirect to another page
+                navigate("/login")
             }
 
         } catch (err) {
