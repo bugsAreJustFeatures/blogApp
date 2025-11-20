@@ -301,5 +301,29 @@ def get_home_blogs():
     return home_blogs
 
 
+# get blogs of a specfic user
+def get_user_blogs(username):
+    conn = get_conn()
+    cur = conn.cursor()
+
+    cur.execute("""
+        SELECT id FROM users
+        WHERE username = (%s);
+    """, (username,))
+
+    user_id = cur.fetchone()
+
+    cur.execute("""
+        SELECT blogs.id, blogs.title, blogs.content, blogs.created_on, users.username FROM blogs
+        LEFT JOIN users
+        ON blogs.user_id = users.id
+        WHERE blogs.user_id = (%s)
+        ORDER BY created_on DESC
+        LIMIT 10;
+    """, (user_id,))
+
+    user_blogs = cur.fetchall()
+
+    return user_blogs
 
 
