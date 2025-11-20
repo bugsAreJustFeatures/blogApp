@@ -310,7 +310,7 @@ def get_user_blogs(username):
     user_id = cur.fetchone()
 
     cur.execute("""
-        SELECT blogs.id, blogs.title, blogs.content, blogs.summary, blogs.created_on, users.username FROM blogs
+        SELECT blogs.id, blogs.title, blogs.summary, blogs.created_on, users.username FROM blogs
         LEFT JOIN users
         ON blogs.user_id = users.id
         WHERE blogs.user_id = (%s)
