@@ -131,6 +131,20 @@ def get_user_info_for_login(username):
         return None
     
 
+# find the username of the user via user_id
+def get_username_via_id(user_id):
+    conn = get_conn()
+    cur = conn.cursor()
+
+    cur.execute("""
+        SELECT username FROM users
+        WHERE id = (%s);
+    """, (user_id,))
+
+    username = cur.fetchone()
+
+    return username
+
 # edit username 
 def edit_username(user_id, new_username):
     conn = get_conn()
@@ -313,7 +327,7 @@ def get_user_blogs(username):
         SELECT blogs.id, blogs.title, blogs.summary, blogs.created_on, users.username FROM blogs
         LEFT JOIN users
         ON blogs.user_id = users.id
-        WHERE blogs.user_id = (%s)
+        WHERE blogs.user_id = (%s) AND blogs.is_published = true
         ORDER BY created_on DESC
         LIMIT 10;
     """, (user_id,))
@@ -323,3 +337,27 @@ def get_user_blogs(username):
     return user_blogs
 
 
+# get user blogs of a specific user, but also show their unpublished work - this is used for when searching yourself
+def get_user_blogs_unpublished(username):
+    conn = get_conn()
+    cur = conn.cursor()
+
+    cur.execute("""
+        SELECT id FROM users
+        WHERE username = (%s);
+    """, (username,))
+
+    user_id = cur.fetchone()
+
+    cur.execute("""
+        SELECT blogs.id, blogs.title, blogs.summary, blogs.created_on, users.username FROM blogs
+        LEFT JOIN users
+        ON blogs.user_id = users.id
+        WHERE blogs.user_id = (%s)
+        ORDER BY created_on DESC
+        LIMIT 10;
+    """, (user_id,))
+
+    user_blogs = cur.fetchall()
+
+    return user_blogs
