@@ -24,7 +24,7 @@ export default function HomePage() {
 
                 // update state with these newly fetched blogs
                 setBlogs(data.blogs);
-                console.log(data.blogs[0][0])
+                console.log(data.blogs)
         
             } catch (err) {
                 throw new Error(err);
@@ -45,7 +45,7 @@ export default function HomePage() {
 
             let blogId = blogs[i][0]; // get the blog id
             let title = blogs[i][1];// get the blog title
-            let content = blogs[i][2]; // get the blog content
+            let summary = blogs[i][2]; // get the blog content
             let username = blogs[i][3];// get the username of the user who created the blog
             let createdOn = blogs[i][4]; // get the creation time and date
 
@@ -54,7 +54,7 @@ export default function HomePage() {
             <div key={blogId} className={styles.blogContainer}>
                 <p>{blogId}</p>
                 <p>{title}</p>
-                <p>{content}</p>
+                <p>{summary}</p>
                 <p>{username}</p>
                 <p>{createdOn}</p>
             </div>)
