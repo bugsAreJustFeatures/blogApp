@@ -23,6 +23,7 @@ def create():
 
     title = data["title"] # get title form input
     content = data["content"] # get content form input
+    summary = content[:50] + "..." # takes the first 50 characters
     is_published = data["isPublished"] # get published status
 
     # get user_id from token after decoding it                   
@@ -30,7 +31,7 @@ def create():
     user_id = decoded_token["user_id"]
 
     # create blog 
-    blog_id = create_blog_return_id(title, content, is_published, user_id)
+    blog_id = create_blog_return_id(title, content, summary, is_published, user_id)
 
     return jsonify({
         "error": False,
