@@ -38,7 +38,7 @@ export default function BlogPage() {
         };
 
         getBlog();
-    }, [blog])
+    }, [])
 
     // checks if blog has been found otherwise show loading message
     if (!blog) {
