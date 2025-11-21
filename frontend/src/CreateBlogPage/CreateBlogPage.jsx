@@ -6,10 +6,11 @@ import { useEffect } from "react";
 
 export default function CreateBlogPage() {
 
-    const navigate = useNavigate();
+    const navigate = useNavigate(); // use hook to redirect user when needed
 
-    const api = import.meta.env.VITE_API;
+    const api = import.meta.env.VITE_API; // get api url from .env
 
+    // use effect used on mount to check if jwt is there, if it is, user is logged in
     useEffect(() => {
         function checkJwtIsThere() {
 
@@ -26,12 +27,14 @@ export default function CreateBlogPage() {
 
     }, [])
 
-
+    // function for handling the form of creating a blog
     async function handleForm(e) {
         e.preventDefault(); // prevent default form behaviour
 
+        // get form
         const form = e.target;
 
+        // get elements from form
         const title = form.title.value;
         const content = form.content.value;
         const isPublished = form.isPublished.checked; 
@@ -53,10 +56,11 @@ export default function CreateBlogPage() {
 
             // read and check response
             // check it was ok
-            if (response.status == 201) {
-                navigate("/")
-            } else if (response.status == 401) {
-                navigate("/login")
+            if (response.status == 201) { // blog was created
+                navigate("/");
+
+            } else if (response.status == 401) { // backend blocked the request to create it so send to log in again, this will only really happen if user has a invalid jwt
+                navigate("/login");
             };
 
         } catch (err) {

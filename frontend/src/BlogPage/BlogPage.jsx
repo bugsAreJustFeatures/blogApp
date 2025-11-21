@@ -5,14 +5,15 @@ import { useEffect, useState } from "react";
 export default function BlogPage() {
     
     // state variables
-    const [blog, setBlog] = useState(null);
+    const [blog, setBlog] = useState(null); // used to store the blog and its data
 
     const params = useParams(); // use params in url
 
-    const api = import.meta.env.VITE_API;
+    const api = import.meta.env.VITE_API; // get .env variable for api
 
     const blogId = params.blogId; // get the blog id from url which i pass when it gets clicked
 
+    // useEffect used to get the blog data from backend api
     useEffect(() => {
 
         async function getBlog() {
@@ -29,7 +30,8 @@ export default function BlogPage() {
                 const data = await response.json();
 
                 // update state with blog details
-                setBlog(data)
+                setBlog(data);
+                
             } catch (err) {
                 throw new Error(err);
             };

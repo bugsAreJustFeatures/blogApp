@@ -7,11 +7,11 @@ import renderBlogs from "../RenderBlogs/RenderBlogs";
 export default function HomePage() {
 
     // state variables
-    const [blogs, setBlogs] = useState(null); // used to store the blogs after fetching
     const [blogsRendered, setBlogsRendered] = useState(null); // use to store the blogs after theyve been rendered
 
-    const api = import.meta.env.VITE_API;
+    const api = import.meta.env.VITE_API; // get api url from .env
 
+    // useEffect used on mount to fetch the blogs to display
     useEffect(() => {
         async function fetchBlogs() {
             // try to fetch blogs for page
@@ -21,13 +21,9 @@ export default function HomePage() {
                 });
         
                 // check and read response
-                console.log(response);
                 const data = await response.json();
-                console.log(data);
 
-                // update state with these newly fetched blogs
-                setBlogs(data.blogs);
-                console.log(data.blogs);
+                // parse through renderBlogs function to display them properly, then update state with these newly fetched blogs
                 const renderedBlogs = renderBlogs(data.blogs)
                 setBlogsRendered(renderedBlogs);
         
@@ -39,14 +35,10 @@ export default function HomePage() {
 
     }, [])
 
-    
-
     // checks if the blogs have been fetched otherwise just shows a "loading" message
-    if (!blogs || !blogsRendered) {
+    if (!blogsRendered) {
         return <h1>Loading...</h1>
     };
-
-
 
     return (
         <div className="universalWrapper">

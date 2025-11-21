@@ -2,13 +2,15 @@ import styles from "./SettingsPage.module.css"
 
 export default function SettingsPage() {
 
-    const api = import.meta.env.VITE_API;
+    const api = import.meta.env.VITE_API; // api url from .env
 
+    // func for handling the edit name form
     async function handleEditNameForm(e){
         e.preventDefault() // prevent default form behaviour
 
-        const form = e.target;
+        const form = e.target; // get form
 
+        // get form values
         const newFirstName = form.newFirstName.value;
         const newLastName = form.newLastName.value;
 
@@ -26,21 +28,19 @@ export default function SettingsPage() {
                 }),
             });
 
-            // read and check response
-            console.log(response)
-            const data = await response.json()
-            console.log(data)
-
         } catch (err) {
             throw new Error(err);
         };
     };
 
+    // func for handliing the form that edits username
     async function handleEditUsernameForm(e){
         e.preventDefault() // prevent default form behaviour
 
+        // get form
         const form = e.target;
 
+        // get new username
         const newUsername = form.newUsername.value;
 
         // try to send data to backend
@@ -56,22 +56,20 @@ export default function SettingsPage() {
                 }),
             });
 
-            // read and check response
-            console.log(response)
-            const data = await response.json()
-            console.log(data)
-
         } catch (err) {
             throw new Error(err);
         };
 
     };
 
+    // func for handlinig the edit password fomr
     async function handleEditPasswordForm(e){
         e.preventDefault() // prevent default form behaviour
 
+        // get form
         const form = e.target;
 
+        // get form values
         const newPassword = form.newPassword.value;
         const newConfirmPassword = form.newConfirmPassword.value;
 
@@ -89,16 +87,12 @@ export default function SettingsPage() {
                 }),
             });
 
-            // read and check response
-            console.log(response)
-            const data = await response.json()
-            console.log(data)
-
         } catch (err) {
             throw new Error(err);
         };
     };
 
+    // func for handling the delete account form
     async function handleDeleteAccountForm(e){
         e.preventDefault() // prevent default form behaviour
 
@@ -110,11 +104,6 @@ export default function SettingsPage() {
                     "Authorization": `Bearer ${localStorage.getItem("token")}`,
                 },
             });
-
-            // read and check response
-            console.log(response)
-            const data = await response.json()
-            console.log(data)
 
         } catch (err) {
             throw new Error(err);

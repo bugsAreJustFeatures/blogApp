@@ -5,16 +5,16 @@ import renderBlogs from "../RenderBlogs/RenderBlogs";
 
 export default function UserBlogsPage() {
 
-    const [blogs, setBlogs] = useState(null);
+    // state variables
     const [blogsRendered, setBlogsRendered] = useState(null);
 
-    const api = import.meta.env.VITE_API;
-    const params = useParams()
+    // global func variables
+    const api = import.meta.env.VITE_API; // api url
+    const params = useParams(); // use params from url
 
+    // useEffect on mount that fetches the blogs of that user
     useEffect(() => {
-
         async function fetchUserBlogs(){
-
             const response = await fetch(`${api}/get-user-blogs/${params.username}`, {
                 method: "GET",
                 headers: {
@@ -23,9 +23,8 @@ export default function UserBlogsPage() {
                 },
             });
 
+            // read response and update state
             const data = await response.json()
-            console.log(data)
-            setBlogs(data.blogs)
             const renderedBlogs = renderBlogs(data.blogs);
             setBlogsRendered(renderedBlogs);
 
@@ -34,7 +33,7 @@ export default function UserBlogsPage() {
 
     }, [])
     
-    if (!blogs || !blogsRendered) {
+    if (!blogsRendered) {
         return <h1>Loading...</h1>
     }
 

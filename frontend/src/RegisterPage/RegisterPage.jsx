@@ -3,14 +3,17 @@ import { useNavigate } from "react"
 
 export default function RegisterPage() {
 
-    const api = import.meta.env.VITE_API
-    const navigate = useNavigate();
+    const api = import.meta.env.VITE_API; // get api url
 
+    const navigate = useNavigate(); // hook used to redirect user to frontend url
+
+    // func for handling the register form
     async function handleForm(e) {
         e.preventDefault()  // prevent default form behaviour
 
-        const form = e.target
+        const form = e.target; // get form
 
+        // get form values
         const firstName = form.firstName.value;
         const lastName = form.lastName.value;
         const username = form.username.value;
@@ -35,11 +38,15 @@ export default function RegisterPage() {
 
             // check response was ok
             if (response.status !== 200) {
-                console.error("Error occured whilst contacting API.")
+                console.error("Error occured whilst contacting API.");
+
+                // show message to notify the user
+                // something went wrong
+
             } else {
-                // redirect to another page
-                navigate("/login")
-            }
+                // redirect to login page
+                navigate("/login");
+            };
 
         } catch (err) {
             throw new Error(err);
