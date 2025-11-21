@@ -1,10 +1,72 @@
-import { Outlet } from "react-router-dom"
+import { Outlet, Link, useLocation } from "react-router-dom"
+import styles from "./Navbar.module.css";
+import { useEffect, useState } from "react";
+import checkJwt from "../utils/checkJwt";
 
 export default function Navbar() {
 
+    // state variables
+    const [isLoggedIn, setIsLoggedIn] = useState(false); // used to see if user is logged in and know what links to show them
+
+    // hooks / global func variables
+    const location = useLocation(); // used to store the url of page
+
+    // useEffect on mount to check if a jwt is there 
+    useEffect(() => {
+
+        function isJwtPresent() {
+            const token = localStorage.getItem("token");
+
+            const result = checkJwt(token)
+
+            result ? setIsLoggedIn(true) : setIsLoggedIn(false);
+        };
+        isJwtPresent();
+
+    }, [location])
+
     return (
         <>
-            <h1>This is navbar</h1>
+
+            <div id={styles.navbarWrapper}>
+                
+                <div id={styles.homeLink}>
+                    <Link to="/">Home</Link>
+                </div>
+
+                {!isLoggedIn && (
+                    <>
+                        <div id={styles.registerLink}>
+                            <Link to="/register">Register</Link>
+                        </div>
+
+                        <div id={styles.loginLink}>
+                            <Link to="/login">Login</Link>
+                        </div>
+                    </>
+                )}
+
+                {isLoggedIn && (
+                    <>
+                        <div id={styles.logoutLink}>
+                            <Link to="/logout">Logout</Link>
+                        </div>
+
+                        <div id={styles.createBlogLink}>
+                            <Link to="/create-blog">Create Blog</Link>
+                        </div>
+
+                        <div id={styles.settingsLink}>
+                            <Link to="/settings">Settings</Link>
+                        </div>
+
+                        <div id={styles.searchUserLink}>
+                            <Link to="/search-user">Search User</Link>
+                        </div>
+                    </>
+                )}
+
+            </div>
 
             < Outlet />
         </>

@@ -1,0 +1,12 @@
+a {
+    text-decoration: none;
+    color: black;
+}
+
+#navbarWrapper {
+    width: 50%;
+    grid-row: 1;
+    display: flex;
+    justify-content: space-evenly;
+
+}
