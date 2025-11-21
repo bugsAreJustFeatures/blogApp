@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import styles from "./BlogPage.module.css";
 import { useEffect, useState } from "react";
 
@@ -48,10 +48,23 @@ export default function BlogPage() {
     return (
         <div className="universalWrapper">
             <div id={styles.blogWrapper}>
-                {blog.username}
-                {blog.date}
-                {blog.title}
-                {blog.content}
+                <div id={styles.usernameWrapper}>
+                    <Link id={styles.usernameLink} to={`/users/${blog.username}`}>
+                        <h3 id={styles.usernameHeader}>{blog.username}</h3>
+                    </Link>
+                </div>
+
+                <div id={styles.dateWrapper}>
+                    <h4 id={styles.dateHeader}>{blog.date}</h4>
+                </div>
+
+                <div id={styles.titleWrapper}>
+                    <h1 id={styles.titleHeader}>{blog.title}</h1>
+                </div>
+                
+                <div id={styles.contentWrapper}>
+                    <p>{blog.content}</p>
+                </div>
             </div>
         </div>
     )

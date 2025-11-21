@@ -1,0 +1,19 @@
+#usernameHeader {
+    text-decoration: underline;
+    color: inherit;
+}
+
+#usernameHeader:hover {
+    color: rgb(132, 195, 250)
+}
+
+#titleWrapper {
+    font-size: x-large;
+    margin: 3vh 0;
+}
+
+#contentWrapper {
+    line-height: 2.5;
+    font-weight: 400;
+    font-size: 1.3rem;
+}
