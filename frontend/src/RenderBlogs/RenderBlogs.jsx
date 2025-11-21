@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styles from "./RenderBlogs.module.css"
 
 export default function renderBlogs(blogs) {
@@ -11,11 +12,14 @@ export default function renderBlogs(blogs) {
         // push the div as one so that each blog will have its own div
         blogsArr.push(
         <div key={blogId} className={styles.blogContainer}>
-            <p>{blogId}</p>
-            <p>{title}</p>
-            <p>{summary}</p>
-            <p>{username}</p>
-            <p>{createdOn}</p>
+            <Link to={`/blogs/${blogId}`}>
+                <p>{blogId}</p>
+                <p>{title}</p>
+                <p>{summary}</p>
+                <p>{username}</p>
+                <p>{createdOn}</p>
+            </Link>
+            
         </div>)
     }
     // return the newly made divs
