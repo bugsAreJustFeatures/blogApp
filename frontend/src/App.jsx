@@ -10,6 +10,7 @@ import SettingsPage from "./SettingsPage/SettingsPage"
 import BlogPage from "./BlogPage/BlogPage"
 import UserBlogsPage from "./UserBlogsPage/UserBlogsPage"
 import CreateBlogPage from './CreateBlogPage/CreateBlogPage';
+import SearchUser from './SearchUser/SearchUser';
 
 function App() {
 
@@ -49,6 +50,10 @@ function App() {
         {
           path: "/create-blog",
           element: < CreateBlogPage />,
+        },
+        {
+          path: "/search-user",
+          element: < SearchUser />,
         }
       ]
     }
