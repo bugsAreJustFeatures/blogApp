@@ -42,10 +42,7 @@ export default function HomePage() {
 
     return (
         <div className="universalWrapper">
-            <div id={styles.homeBlogsWrapper}>
-
                 {blogsRendered}
-            </div>
         </div>
     )
 };
