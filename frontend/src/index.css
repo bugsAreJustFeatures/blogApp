@@ -1,0 +1,11 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    display: grid;
+    grid-template-rows: 0.1fr 0.9fr;
+    grid-template-columns: 1fr;
+    min-height: 100vh;
+}
