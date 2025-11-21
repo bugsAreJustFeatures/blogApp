@@ -1,12 +1,25 @@
-a {
+.navbarLink {
     text-decoration: none;
-    color: black;
+    color: inherit;
+    font-size: large;
+}
+
+.navbarLink:hover {
+    text-decoration: line-through;
+    /* border: thin solid red; */
 }
 
 #navbarWrapper {
-    width: 50%;
+    width: 100%;
     grid-row: 1;
     display: flex;
     justify-content: space-evenly;
-
+    margin-top: 1rem;
 }
+
+
+
+
+
+
+

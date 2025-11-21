@@ -31,17 +31,17 @@ export default function Navbar() {
             <div id={styles.navbarWrapper}>
                 
                 <div id={styles.homeLink}>
-                    <Link to="/">Home</Link>
+                    <Link className={styles.navbarLink} to="/">Home</Link>
                 </div>
 
                 {!isLoggedIn && (
                     <>
                         <div id={styles.registerLink}>
-                            <Link to="/register">Register</Link>
+                            <Link className={styles.navbarLink} to="/register">Register</Link>
                         </div>
 
                         <div id={styles.loginLink}>
-                            <Link to="/login">Login</Link>
+                            <Link className={styles.navbarLink} to="/login">Login</Link>
                         </div>
                     </>
                 )}
@@ -49,19 +49,19 @@ export default function Navbar() {
                 {isLoggedIn && (
                     <>
                         <div id={styles.logoutLink}>
-                            <Link to="/logout">Logout</Link>
+                            <Link className={styles.navbarLink} to="/logout">Logout</Link>
                         </div>
 
                         <div id={styles.createBlogLink}>
-                            <Link to="/create-blog">Create Blog</Link>
+                            <Link className={styles.navbarLink} to="/create-blog">Create Blog</Link>
                         </div>
 
                         <div id={styles.settingsLink}>
-                            <Link to="/settings">Settings</Link>
+                            <Link className={styles.navbarLink} to="/settings">Settings</Link>
                         </div>
 
                         <div id={styles.searchUserLink}>
-                            <Link to="/search-user">Search User</Link>
+                            <Link className={styles.navbarLink} to="/search-user">Search User</Link>
                         </div>
                     </>
                 )}
