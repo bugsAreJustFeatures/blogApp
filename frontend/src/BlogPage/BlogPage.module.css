@@ -13,7 +13,7 @@
 }
 
 #contentWrapper {
-    line-height: 2.5;
-    font-weight: 400;
-    font-size: 1.3rem;
+    line-height: normal;
+    white-space: pre-wrap;
+    padding-bottom: 2rem;
 }
