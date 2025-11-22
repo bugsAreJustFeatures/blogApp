@@ -5,6 +5,11 @@
     color: aliceblue;
 }
 
+html {
+    min-height: 100vh;
+
+}
+
 body {
     display: grid;
     grid-template-rows: 0.2fr 0.8fr;

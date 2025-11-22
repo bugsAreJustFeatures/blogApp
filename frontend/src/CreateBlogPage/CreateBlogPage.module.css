@@ -1,0 +1,78 @@
+input, textarea, button {
+    color: rgb(5, 5, 92);
+    border-radius: 3rem;
+    border: none;
+}
+
+label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#formWrapper {
+    width: 100%;
+    height: 100%;
+}
+
+#createBlogForm {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 0.1fr 0.9fr;
+    grid-template-rows: 0.2fr 0.6fr 0.1fr 0.1fr;
+    gap: 1.25rem;
+}
+
+#titleLabel {
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#contentLabel {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+#isPublishedLabel {
+    grid-column: 1;
+    grid-row: 3;
+}
+
+#titleInput {
+    grid-column: 2;
+    grid-row: 1;
+    height: 20%;
+    align-self: center;
+    padding-left: 0.5rem;
+}
+
+#contentTextarea {
+    grid-column: 2;
+    grid-row: 2;
+    padding: 1.5rem;
+}
+
+#isPublishedCheckBox {
+    grid-column: 2;
+    grid-row: 3;
+    display: grid;
+    width: 7%;
+    align-items: start;
+    justify-self: start;
+}
+
+#createButton {
+    grid-column: 2;
+    grid-row: 3;
+    width: 15%;
+    height: 70%;
+    justify-self: end;
+    align-self: center;
+    margin-right: 10%;
+    padding: 0 1.5rem;
+
+}

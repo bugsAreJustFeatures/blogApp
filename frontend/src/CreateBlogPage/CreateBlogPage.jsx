@@ -71,16 +71,20 @@ export default function CreateBlogPage() {
 
     return (
         <div className="universalWrapper">
-            <form onSubmit={(e) => handleForm(e)} method="post">
-                <input type="text" name="title" id={styles.titleInput} placeholder="Hello, World!" required />
+            <div id={styles.formWrapper}>
+                <form onSubmit={(e) => handleForm(e)} method="post" id={styles.createBlogForm}>
+                    <label htmlFor="title" id={styles.titleLabel}>What will your blog title be?</label>
+                    <input type="text" name="title" id={styles.titleInput} placeholder="Hello, World!" required />
 
-                <textarea name="content" id={styles.contentTextarea} placeholder="This is my first blog!" required ></textarea>
+                    <label htmlFor="content" id={styles.contentLabel}>Write your blog:</label>
+                    <textarea name="content" id={styles.contentTextarea} placeholder="This is my first blog!" required ></textarea>
 
-                <label htmlFor="isPublished">Publish this blog?</label>
-                <input type="checkbox" name="isPublished" id={styles.isPublishedCheckBox}/>
+                    <label htmlFor="isPublished" id={styles.isPublishedLabel}>Publish this blog?</label>
+                    <input type="checkbox" name="isPublished" id={styles.isPublishedCheckBox} defaultChecked />
 
-                <button type="submit">Finish Blog</button>
-            </form>
+                    <button type="submit" id={styles.createButton}>Publish/Save Blog</button>
+                </form>
+            </div>
         </div>
     )
 };
