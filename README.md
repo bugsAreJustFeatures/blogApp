@@ -6,7 +6,7 @@
 
 ----------
 
-### What Is this Project
+# What Is this Project
 
 #### FYI, There is a requirements.txt file that contains all the packages I used and is currently used to maintain this project.
 
@@ -14,7 +14,7 @@
 
 - I have made use of many packages but have mainly used the ones that come with Flask. 
 
-- What I used for the Frontend
+### What I used for the Frontend
     - HTML
     - CSS
     - JS
@@ -24,7 +24,7 @@
     - Git
     - GitHub
 
-- What I used for the Backend
+### What I used for the Backend
     - Supabase 
     - Render
     - Git
