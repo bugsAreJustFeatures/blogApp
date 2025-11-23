@@ -112,29 +112,46 @@ export default function SettingsPage() {
 
     return (
         <div className="universalWrapper">
-            <form onSubmit={(e) => handleEditNameForm(e)} method="post">
-                <input type="text" name="newFirstName" id={styles.newFirstNameInput} placeholder="New first name"/>
-                <input type="text" name="newLastName" id={styles.newLastNameInput} placeholder="New last name"/>
+            <div id={styles.settingsPageWrapper}>
+                <div id={styles.settingsEditForms}>
+                    <form onSubmit={(e) => handleEditNameForm(e)} method="post" className={styles.editForms} >
+                        <label htmlFor="newFirstName">New First / Last Name:</label>
+                        <input type="text" name="newFirstName" id={styles.newFirstNameInput} placeholder="New first name" />
 
-                <button type="submit">Change Name</button>
-            </form>
+                        <input type="text" name="newLastName" id={styles.newLastNameInput} placeholder="New last name" />
 
-            <form onSubmit={(e) => handleEditUsernameForm(e)} method="post">
-                <input type="text" name="newUsername" id={styles.newUsernameInput} placeholder="New username"/>
+                        <button type="submit">Change Name(s)</button>
+                    </form>
 
-                <button type="submit">Change Username</button>
-            </form>
+                    <form onSubmit={(e) => handleEditUsernameForm(e)} method="post" className={styles.editForms} >
+                        
+                        <label htmlFor="newUsername">New Username:</label>
+                        <input type="text" name="newUsername" id={styles.newUsernameInput} placeholder="New username" required/>
 
-            <form onSubmit={(e) => handleEditPasswordForm(e)} method="post">
-                <input type="password" name="newPassword" id={styles.newPasswordInput} placeholder="New password"/>
-                <input type="password" name="newConfirmPassword" id={styles.newConfirmPasswordInput} placeholder="Confirm new password"/>
+                        <button type="submit">Change Username</button>
+                    </form>
 
-                <button type="submit">Change Password</button>
-            </form>
+                    <form onSubmit={(e) => handleEditPasswordForm(e)} method="post" className={styles.editForms} >
 
-            <form onSubmit={(e) => handleDeleteAccountForm(e)} method="post">
-                <button type="submit">Delete Account</button>
-            </form>
+                        <label htmlFor="newPassword">New Password:</label>
+                        <input type="password" name="newPassword" id={styles.newPasswordInput} placeholder="New password" required/>
+
+                        <label htmlFor="newConfirmPassword">Confirm New Password:</label>
+                        <input type="password" name="newConfirmPassword" id={styles.newConfirmPasswordInput} placeholder="Confirm new password" required/>
+
+                        <button type="submit">Change Password</button>
+                    </form>
+                </div>
+
+                <div id={styles.settingsDeleteForms}>
+                    <form onSubmit={(e) => handleDeleteAccountForm(e)} method="post" id={styles.settingsDeleteForm}>
+
+                        <h1><u>Dangerous Activity</u></h1>
+
+                        <button type="submit">Delete Account</button>
+                    </form>
+                </div>
+            </div>
         </div>
     )
 };
