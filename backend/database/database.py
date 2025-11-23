@@ -8,13 +8,9 @@ from flask import current_app
 
 # get connection string and has to be func because of reason above ^^^
 def get_conn():
-    database_name = current_app.config["PSQL_DATABASE_NAME"]
-    user = current_app.config["PSQL_DATABASE_USER"]
-    password = current_app.config["PSQL_DATABASE_PASSWORD"]
-    host = current_app.config["PSQL_DATABASE_HOST"]
-    port=current_app.config["PSQL_DATABASE_PORT"]
+    connection_string = current_app.config["DATABASE_CONNECTION_STRING"]
 
-    conn = psycopg2.connect(f"postgresql://{user}:{password}@{host}:{port}/{database_name}")
+    conn = psycopg2.connect(connection_string)
 
     return conn
 
