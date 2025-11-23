@@ -10,11 +10,7 @@ from routes import register, login, create_blog, get_blog, edit_blog, delete_blo
 app = Flask(__name__)
 
 # connection string variables
-app.config["PSQL_DATABASE_NAME"] = os.getenv("DATABASE_NAME")
-app.config["PSQL_DATABASE_USER"] = os.getenv("DATABASE_USER")
-app.config["PSQL_DATABASE_PASSWORD"] = os.getenv("DATABASE_PASSWORD")
-app.config["PSQL_DATABASE_HOST"] = os.getenv("DATABASE_HOST")
-app.config["PSQL_DATABASE_PORT"] = os.getenv("DATABASE_PORT")
+app.config["DATABASE_CONNECTION_STRING"] = os.getenv("DATABASE_CONNECTION_STRING")
 
 # CORS setup
 CORS(app, resources={r"/api/*": { "origins":"http://localhost:5173" }})
