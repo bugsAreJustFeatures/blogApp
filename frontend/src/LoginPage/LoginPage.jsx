@@ -58,13 +58,17 @@ export default function LoginPage() {
 
     return (
         <div className="universalWrapper">
-            <form onSubmit={(e) => handleForm(e)} method="POST">
-                <input type="text" name="username" id={styles.usernameInput} />
+            <div id={styles.loginFormWrapper}>
+                <form onSubmit={(e) => handleForm(e)} method="POST" id={styles.loginForm}>
+                    <label htmlFor="username">Username:</label>
+                    <input type="text" name="username" id={styles.usernameInput} />
 
-                <input type="password" name="password" id={styles.passwordInput} />
+                    <label htmlFor="password">Password:</label>
+                    <input type="password" name="password" id={styles.passwordInput} />
 
-                <button type="submit">Login</button>
-            </form>
+                    <button type="submit">Login</button>
+                </form>
+            </div>
         </div>
     )
 };
