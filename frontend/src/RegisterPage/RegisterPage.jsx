@@ -55,19 +55,27 @@ export default function RegisterPage() {
 
     return (
         <div className="universalWrapper">
-            <form onSubmit={(e) => handleForm(e)} method="POST">
-                <input type="text" name="firstName" id={styles.firstNameInput} />
+            <div id={styles.registerFormWrapper}>
+                <form onSubmit={(e) => handleForm(e)} method="POST" id={styles.registerForm}>
 
-                <input type="text" name="lastName" id={styles.lastNameINput} />
+                    <label htmlFor="firstName" id={styles.firstNameLabel}>First Name:</label>
+                    <input type="text" name="firstName" id={styles.firstNameInput} placeholder="John" required />
 
-                <input type="text" name="username" id={styles.usernameInput} />
+                    <label htmlFor="lastName" id={styles.lastNameLabel}>Last Name:</label>
+                    <input type="text" name="lastName" id={styles.lastNameInput} placeholder="Smith" required/>
 
-                <input type="password" name="password" id={styles.password} />
-                
-                <input type="password" name="confirmPassword" id={styles.confirmPassword} />
+                    <label htmlFor="username" id={styles.usernameLabel}>Username:</label>
+                    <input type="text" name="username" id={styles.usernameInput} placeholder="JohnSmith123" required/>
 
-                <button type="submit">Register</button>
-            </form>
+                    <label htmlFor="password" id={styles.passwordLabel}>Password:</label>
+                    <input type="password" name="password" id={styles.password} placeholder="password" required/>
+                    
+                    <label htmlFor="confirmPassword" id={styles.confirmPasswordLabel}>Confirm Password:</label>
+                    <input type="password" name="confirmPassword" id={styles.confirmPassword} placeholder="Confirm Password" required/>
+
+                    <button type="submit">Register</button>
+                </form>
+            </div>
         </div>
     )
 };
