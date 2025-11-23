@@ -53,6 +53,8 @@ label {
     grid-row: 2;
     padding: 1.5rem;
     white-space: pre-line;
+    resize: none;
+    scrollbar-width: none;
 }
 
 #checkBoxAndButtonWrapper {
@@ -72,6 +74,7 @@ label {
     grid-column: 1;
     grid-row: 2;
     height: 50%;
+    align-self: start;
 }
 
 #createButton {
