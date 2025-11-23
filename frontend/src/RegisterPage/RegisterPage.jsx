@@ -42,7 +42,6 @@ export default function RegisterPage() {
 
                 // show message to notify the user
                 // something went wrong
-                console.log(await response.json())
 
             } else {
                 // redirect to login page
