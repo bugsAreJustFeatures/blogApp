@@ -1,3 +1,16 @@
+input, textarea, button {
+    color: rgb(5, 5, 92);
+    border-radius: 3rem;
+    border: none;
+}
+
+label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: underline;
+}
+
 .universalWrapper {
     display: flex;
     margin: auto;
