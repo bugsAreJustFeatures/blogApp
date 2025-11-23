@@ -37,7 +37,7 @@ export default function RegisterPage() {
             });
 
             // check response was ok
-            if (response.status !== 200) {
+            if (response.status !== 201) {
                 console.error("Error occured whilst contacting API.");
 
                 // show message to notify the user
