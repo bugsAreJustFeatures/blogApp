@@ -79,10 +79,13 @@ export default function CreateBlogPage() {
                     <label htmlFor="content" id={styles.contentLabel}>Write your blog:</label>
                     <textarea name="content" id={styles.contentTextarea} placeholder="This is my first blog!" required ></textarea>
 
-                    <label htmlFor="isPublished" id={styles.isPublishedLabel}>Publish this blog?</label>
-                    <input type="checkbox" name="isPublished" id={styles.isPublishedCheckBox} defaultChecked />
 
-                    <button type="submit" id={styles.createButton}>Publish/Save Blog</button>
+                    <div id={styles.checkBoxAndButtonWrapper}>
+                        <label htmlFor="isPublished" id={styles.isPublishedLabel}>Publish this blog?</label>
+                        <input type="checkbox" name="isPublished" id={styles.isPublishedCheckBox} defaultChecked />
+
+                        <button type="submit" id={styles.createButton}>Publish/Save Blog</button>
+                    </div>
                 </form>
             </div>
         </div>

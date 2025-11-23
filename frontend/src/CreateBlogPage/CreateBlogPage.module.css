@@ -39,10 +39,6 @@ label {
     grid-row: 2;
 }
 
-#isPublishedLabel {
-    grid-column: 1;
-    grid-row: 3;
-}
 
 #titleInput {
     grid-column: 2;
@@ -50,7 +46,6 @@ label {
     height: 100%;
     align-self: center;
     padding-left: 1.5rem;
-    margin-right: 1.5rem;
 }
 
 #contentTextarea {
@@ -60,22 +55,30 @@ label {
     white-space: pre-line;
 }
 
-#isPublishedCheckBox {
-    grid-column: 2;
+#checkBoxAndButtonWrapper {
+    grid-column: span 2;
     grid-row: 3;
     display: grid;
-    width: 7%;
-    align-items: start;
-    justify-self: start;
+    grid-template-columns: 1fr 1fr;
+    grid-row: 1fr;
+}
+
+#isPublishedLabel {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+#isPublishedCheckBox {
+    grid-column: 1;
+    grid-row: 2;
+    height: 50%;
 }
 
 #createButton {
     grid-column: 2;
-    grid-row: 3;
-    width: 15%;
-    height: 100%;
-    justify-self: end;
+    grid-row: span 2;
+    height: 50%;
+    width: 50%;
     align-self: center;
-    margin-right: 1.5rem;
-
+    justify-self: center;
 }
